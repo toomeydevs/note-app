@@ -74,7 +74,7 @@ Create `server/.env` with:
 ```env
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/note-app
-JWT_SECRET=your-strong-secret
+JWT_SECRET=CHANGE_THIS_TO_A_SECURE_RANDOM_STRING_OF_AT_LEAST_32_CHARACTERS
 CLIENT_URL=http://localhost:5173
 ```
 
@@ -142,7 +142,7 @@ npm run preview  # Preview production build locally
 ### Server
 
 ```bash
-npm test         # Placeholder script (currently not implemented)
+npm test         # Placeholder command (fails by default: no server tests are implemented yet)
 ```
 
 ## API Endpoints
