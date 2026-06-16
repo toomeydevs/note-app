@@ -163,11 +163,10 @@ Base URL: `http://localhost:5000/api`
 - `PUT /notes/:id` — Update note
 - `DELETE /notes/:id` — Delete note
 
-Authentication header for protected routes:
+Authentication for protected routes:
 
-```http
-Authorization: token-from-login-response
-```
+- Send the JWT from login/signup in the `Authorization` header using the **Bearer** scheme.
+- Format: `Authorization` header with `Bearer` followed by your JWT value.
 
 ## Security and Validation Notes
 
