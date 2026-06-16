@@ -18,8 +18,9 @@ function NotesApp() {
     setCategory, setSearch, addNote, editNote, removeNote,
   } = useNotes();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingNote, setEditingNote] = useState(null);
+  // 'closed' | 'create' | 'edit' | 'view'
+  const [modalMode, setModalMode] = useState('closed');
+  const [activeNote, setActiveNote] = useState(null);
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem('note-app-theme') === 'dark';
   });
@@ -30,23 +31,32 @@ function NotesApp() {
   }, [darkMode]);
 
   function handleAddNote() {
-    setEditingNote(null);
-    setIsModalOpen(true);
+    setActiveNote(null);
+    setModalMode('create');
+  }
+
+  function handleViewNote(note) {
+    setActiveNote(note);
+    setModalMode('view');
   }
 
   function handleEditNote(note) {
-    setEditingNote(note);
-    setIsModalOpen(true);
+    setActiveNote(note);
+    setModalMode('edit');
+  }
+
+  function handleSwitchToEdit() {
+    setModalMode('edit');
   }
 
   function handleCloseModal() {
-    setIsModalOpen(false);
-    setEditingNote(null);
+    setModalMode('closed');
+    setActiveNote(null);
   }
 
   async function handleSave(noteData) {
-    if (editingNote) {
-      await editNote(editingNote._id, noteData);
+    if (modalMode === 'edit') {
+      await editNote(activeNote._id, noteData);
     } else {
       await addNote(noteData);
     }
@@ -75,16 +85,19 @@ function NotesApp() {
       <NotesGrid
         notes={notes}
         loading={loading}
+        onView={handleViewNote}
         onEdit={handleEditNote}
         onDelete={removeNote}
         onAddNote={handleAddNote}
       />
 
-      {isModalOpen && (
+      {modalMode !== 'closed' && (
         <NoteModal
-          note={editingNote}
+          note={activeNote}
+          mode={modalMode}
           onSave={handleSave}
           onClose={handleCloseModal}
+          onSwitchToEdit={handleSwitchToEdit}
         />
       )}
     </div>

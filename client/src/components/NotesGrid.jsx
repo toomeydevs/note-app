@@ -1,6 +1,6 @@
-import { Pencil, Trash2, StickyNote, Loader2 } from 'lucide-react';
+import { Pencil, Trash2, StickyNote, Loader2, Eye } from 'lucide-react';
 
-function NotesGrid({ notes, loading, onEdit, onDelete, onAddNote }) {
+function NotesGrid({ notes, loading, onView, onEdit, onDelete, onAddNote }) {
   if (loading) {
     return (
       <div className="notes-loading">
@@ -25,7 +25,7 @@ function NotesGrid({ notes, loading, onEdit, onDelete, onAddNote }) {
   return (
     <section className="notes-grid">
       {notes.map((note) => (
-        <article key={note._id} className="note-card">
+        <article key={note._id} className="note-card" onClick={() => onView(note)} style={{ cursor: 'pointer' }}>
           <div className="note-card__header">
             <h2 className="note-card__title">{note.title}</h2>
             <span className={`note-card__badge note-card__badge--${note.category}`}>
@@ -35,7 +35,11 @@ function NotesGrid({ notes, loading, onEdit, onDelete, onAddNote }) {
 
           <p className="note-card__content">{note.content}</p>
 
-          <div className="note-card__actions">
+          <div className="note-card__actions" onClick={(e) => e.stopPropagation()}>
+            <button className="btn" onClick={() => onView(note)}>
+              <Eye size={14} />
+              View
+            </button>
             <button className="btn" onClick={() => onEdit(note)}>
               <Pencil size={14} />
               Edit

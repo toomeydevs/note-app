@@ -466,6 +466,31 @@ a:hover { text-decoration: underline; }
   margin-top: 0.25rem;
 }
 
+/* ─── Modal View Mode ─────────────────────────────────────────── */
+.modal__view-body {
+  padding: 0.25rem 0 1.5rem;
+}
+
+.modal__view-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.modal__view-content {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.modal__view-content p {
+  margin: 0 0 0.5rem;
+}
+
 /* ─── Form Elements ──────────────────────────────────────────── */
 .form-group {
   display: flex;
